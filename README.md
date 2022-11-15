@@ -33,10 +33,6 @@ sudo apt install mysql-server
     ```
     sudo systemctl start mysql.service
     ```
-- Configure Mysql-server 
-    ```
-    sudo mysql_secure_installation
-    ```
 - Manage User Database 
     ```
     sudo mysql
@@ -46,7 +42,7 @@ sudo apt install mysql-server
     ```
     mysql -u root -p
 
-    ALTER USER 'root'@'localhost' IDENTIFIED WITH auth_socket;
+    ALTER USER 'root'@'localhost' IDENTIFIED WITH auth_socket;  // Optional
     ```
     ```
     sudo mysql_secure_installation
