@@ -81,7 +81,7 @@ Opsional jika kamu butuh terminal yang lebih keren lagi menurut saya keren ngab 
     ```
 - Selengkpanya kunjungi repo [powerlevel10k](https://github.com/romkatv/powerlevel10k)
 
-### <span style="color:orange">Install Apache 2</span>
+### <span id="apache2" style="color:orange">Install Apache 2</span>
 - Download & install apache 2
     ```sh
     sudo apt-get update && sudo apt install apache2
