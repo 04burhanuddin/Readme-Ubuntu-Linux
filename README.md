@@ -8,8 +8,8 @@
 - [PHP](#php)
 - [Mysql Server](#mysqlServer)
 - [Phpmyadmin](#phpmyadmin)
-- [Beekeper Studio](#beekeperStudio)
-- [Visual Studio COde](#vscode)
+- [Table Plus](#tablePlus)
+- [Visual Studio Code](https://code.visualstudio.com/download)
 - [Java](#java)
 - [Android Studio](#androidStudio)
 - [Node JS](#nodejs)
@@ -17,6 +17,7 @@
 - [Flutter](#flutter)
 - [Composer](#composer)
 - [Laravel Global Installer](#laravel)
+- [LSDeluxe](#lsd)
 
 ### <span id="first" style="color:orange">Update semua pembaruan system dan driver</span>
 ```sh
@@ -254,7 +255,7 @@ Opsional jika kamu butuh terminal yang lebih keren lagi menurut saya keren ngab 
     sudo snap install android-studio --classic
     ```
 - Pastikan koneksi intenet kamu cepat dan tidak lemot untuk mendownload semua yang dibutuhkan termasuk Gradle SDK dll pada androis studio.
-## <span id="flutter" style="color:orange">Install FLutter</span>
+## <span id="flutter" style="color:orange">Install Flutter</span>
 - Pastikan java sudah terintall dan Android Studio
 - Buka Android Studio->pilih menu SDK Manager->pilih tab SDK Tools install beberapa SDK Tools
     ![SDK Tools](assets/sdk_tools.png)
@@ -266,12 +267,31 @@ Opsional jika kamu butuh terminal yang lebih keren lagi menurut saya keren ngab 
     ```
     Pastikan tidak ada error jika terjadi error perhatikan dan jalankan perintah yag di sarankan untuk android license dll
 ## <span id="phpmyadmin" style="color:orange">Install Phpmyadmin + Module PHP</span>
-> Saya sarankan menggunakan extension vs code **SQLTools/MariaDB** atau Beekeper Studio atau mysql workbench, kalo nggak pake terminal aja ngab biar kek hecker 😎
+> Saya sarankan menggunakan extension vs code **SQLTools/MariaDB** atau [Table Plus](#mysqlServer) atau mysql workbench, kalo nggak pake terminal aja ngab biar kek hecker 😎
 
 Gunakan perintah ini untuk menginstall phpmyadmin dan beberapa modul php yang dibutuhkan untuk menjalankan phpmyadmin
 ```sh
 sudo apt install -y phpmyadmin php-mbstring php-zip php-gd php-json php-curl libapache2-mod-php php-mysqlnd php-xml
 ```
+
+## <span id="tablePlus" style="color:orange">Table Plus</span>
+
+> UI lebih clean (recomended)
+
+```sh
+# Add TablePlus gpg key
+wget -qO - https://deb.tableplus.com/apt.tableplus.com.gpg.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/tableplus-archive.gpg > /dev/null
+
+# Add TablePlus repo
+sudo add-apt-repository "deb [arch=amd64] https://deb.tableplus.com/debian/22 tableplus main"
+
+# Install
+sudo apt update
+sudo apt install tableplus
+
+```
+![SDK Tools](assets/table_plus.png)
+
 ## <span id="composer" style="color:orange">Install Composer</span>
 - Download dan install Composer
     ```sh
@@ -309,3 +329,11 @@ sudo apt install -y phpmyadmin php-mbstring php-zip php-gd php-json php-curl lib
     composer create-project --prefer-dist laravel/laravel blog "6.*"
     ```
     Perintah di atas contoh untuk menginstall laravel versi 6
+
+## <span id="lsd" style="color:orange">Install LSDeluxe</span>
+> Install ini jika ingin terminal kamu lebih keren seperti ini.
+
+Sialahkan ikuti panduan resmi di github reponya, [LSDeluxe](https://github.com/lsd-rs/lsd) dan [colorls](https://github.com/athityakumar/colorls)</br>
+oh iya ini saya pake [zsh](#install-oh-my-zsh) color dari [gruvbox](https://github.com/morhetz/gruvbox)
+
+![SDK Tools](assets/lsd.png)
