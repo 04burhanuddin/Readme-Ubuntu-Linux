@@ -1,6 +1,7 @@
 # After Installing Ubuntu For Programming
 > Install sesuai kebutuhan :
 - [Update all sistem & driver](#first)
+- [Install firewall](#firewall)
 - [GIT](#git)
 - [OH MY ZSH](#zsh)
 - [PowerLevel 10k ZSH](#p10k)
@@ -18,10 +19,16 @@
 - [Composer](#composer)
 - [Laravel Global Installer](#laravel)
 - [LSDeluxe](#lsd)
+- Kamu bisa explore yg lain pasang sesuai keutuhan saja.
 
 ### <span id="first" style="color:orange">Update semua pembaruan system dan driver</span>
 ```sh
 sudo apt-get update && sudo apt-get dist-upgrade -y
+```
+
+### <span id="firewall" style="color:orange">Update semua pembaruan system dan driver</span>
+```sh
+sudo apt-get install gufw -y
 ```
 
 ### <span id="git" style="color:orange">Install GIT</span>
@@ -76,7 +83,7 @@ Opsional jika kamu butuh terminal yang lebih keren lagi menurut saya keren ngab 
     ```sh
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     ```
-- Konfigurasi theme sesuai pilihanmu dengan menggunakan perintah ini pada terminal
+- Konfigurasi theme sesuai pilihanmu dengan menggunakan perintah ini pada terminal, sebelumnya kamu harus mengganti theme pada ~/.zshrc ```ZSH_THEME="powerlevel10k/powerlevel10k"``` kemudian eksekusi perintah di bawah ini.
     ```sh
     p10k configure
     ```
@@ -85,7 +92,7 @@ Opsional jika kamu butuh terminal yang lebih keren lagi menurut saya keren ngab 
 ### <span id="apache2" style="color:orange">Install Apache 2</span>
 - Download & install apache 2
     ```sh
-    sudo apt-get update && sudo apt install apache2
+    sudo apt-get update && sudo apt install apache2 -y
     ```
 - Managing Apache 2
     ``` sh
@@ -100,7 +107,7 @@ Opsional jika kamu butuh terminal yang lebih keren lagi menurut saya keren ngab 
 - Konfigurasi Firewall 
     ```sh
     sudo ufw app list
-    sudo ufw allow 'Apache Full
+    sudo ufw allow 'Apache Full'
     sudo ufw status
     ```
 
@@ -276,7 +283,7 @@ sudo apt install -y phpmyadmin php-mbstring php-zip php-gd php-json php-curl lib
 
 ## <span id="tablePlus" style="color:orange">Table Plus</span>
 
-> UI lebih clean (recomended)
+> UI lebih clean, kamu juga bisa install extension vs code biat tidak terlalu banyak aplikasi dan qury bisa di simpan di dalam 1 project.
 
 ```sh
 # Add TablePlus gpg key
@@ -334,6 +341,6 @@ sudo apt install tableplus
 > Install ini jika ingin terminal kamu lebih keren seperti ini.
 
 Sialahkan ikuti panduan resmi di github reponya, [LSDeluxe](https://github.com/lsd-rs/lsd) dan [colorls](https://github.com/athityakumar/colorls)</br>
-oh iya ini saya pake [zsh](#install-oh-my-zsh) color dari [gruvbox](https://github.com/morhetz/gruvbox)
+oh iya ini saya pake [zsh](#install-oh-my-zsh) color dari [gruvbox](https://github.com/morhetz/gruvbox) baca semua jangan setengah-setengah untuk mendapatkan hasil maksimal.
 
 ![SDK Tools](assets/lsd.png)
