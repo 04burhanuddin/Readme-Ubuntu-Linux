@@ -32,8 +32,9 @@ sudo apt-get update && sudo apt-get dist-upgrade -y
 
 ## Install Firewall
 
-```sh
+```shell
 sudo apt-get install gufw -y
+# silakahkan buka gufw untuk manage akses firewall
 ```
 
 ## Install GIT
@@ -44,11 +45,50 @@ sudo add-apt-repository ppa:git-core/ppa
 sudo apt-get install git
 ```
 
+Settings ssh git
+> [referensi here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+
+```shell
+cd ~/.ssh
+ssh-keygen -t rsa -b 4096 -C "contoh@gmail.com"
+
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/dev/.ssh/id_rsa): YOUR_ID
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in ....
+Your public key has been saved in ....pub
+The key fingerprint is:
+SHA256:SJ6tYaXowqW0CB..............
+The key's randomart image is:
++---[RSA 4096]----+
+|==o.o. .. .      |
+|B ++o..  . .     |
+|o+.=o.. .   .    |
+|.oooo+ *   .     |
+|. +.o B S   o   E|
+|.+ = . o   . . +.|
+|. = . .       o =|
+|   .          .o+|
+|             ...o|
++----[SHA256]-----+
+
+cat ~/.ssh/YOUR_ID.pub
+# copy semua dan simpan ke ssh keys github settings -> SSH and GPG Keys -> new ssh
+
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/YOUR_ID HERE
+
+# pastikan sudah sukses seperti ini
+ssh -T git@github.com
+Hi ....! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
 ## Install Editor
 
 Disini ada dua editor yang sering saya gunakan yaitu `Neovim` dan `VS Code`
 
-```shwll
+```shell
 # install neovim
 sudo apt-get install neovim
 
@@ -65,16 +105,24 @@ sudo dpkg -i VS-CODE.deb
 ```sh
 sudo apt-get install zsh -y
 
-# menjadikan zsh sebagai default shell
+# menjadikan zsh sebagai default shell stelah itu logout dan login kemabli
+# buka terminal dan pilih opsi 2 untuk menggunakan pengaturan default zsh
 chsh -s /usr/bin/zsh
 
 # unduh script untuk pemasangan zsh
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 
-# 
+# gunakan konfigurasi bawaan zsh yang direkomendasikan 
 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc 
+
+# untuk mengganti theme
 sudo nano ~/.zshrc
+
+# perhatikan pada baris
 ZSH_THEME="masukkan_naam_theme_pilihanmu"
+# check thme zsh https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+
+# dan untuk apply semua perubahan jika tidak berubah close dan buka termila lagi
 source ~/.zshrc
 ```
 
