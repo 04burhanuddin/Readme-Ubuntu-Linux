@@ -1,346 +1,412 @@
-# After Installing Ubuntu For Programming
-> Install sesuai kebutuhan :
-- [Update all sistem & driver](#first)
-- [Install firewall](#firewall)
-- [GIT](#git)
-- [OH MY ZSH](#zsh)
-- [PowerLevel 10k ZSH](#p10k)
-- [Apache 2](#apache2)
-- [PHP](#php)
-- [Mysql Server](#mysqlServer)
-- [Phpmyadmin](#phpmyadmin)
-- [Table Plus](#tablePlus)
-- [Visual Studio Code](https://code.visualstudio.com/download)
-- [Java](#java)
-- [Android Studio](#androidStudio)
-- [Node JS](#nodejs)
-- [Python 3](#python3)
-- [Flutter](#flutter)
-- [Composer](#composer)
-- [Laravel Global Installer](#laravel)
-- [LSDeluxe](#lsd)
-- Kamu bisa explore yg lain pasang sesuai keutuhan saja.
+# **SETUP UBUNTU FOR CODING**
 
-### <span id="first" style="color:orange">Update semua pembaruan system dan driver</span>
+Copyright © 2022 [04burhanuddin](https://github.com/04burhanuddin)
+
+**Warning**: Don't blindly use configurations on dwm, st, dmenu and dwmblocks, unless you know what they require. Use at your own risk!.
+
+## Table Of Contens
+
+- Update all sistem & driver
+- Install firewall
+- Install GIT
+- Install Editor
+- OH MY ZSH
+- Install Apache 2
+- Install Mysql Server
+- Install PHP
+- Manage Databse
+- Install Composer
+- Install Java
+- Install Android Studio
+- Install Flutter
+- Install Node JS Using NVM
+- Install Python 3
+- Laravel Global Installer
+- Others
+
+## Update semua pembaruan system dan driver
+
 ```sh
 sudo apt-get update && sudo apt-get dist-upgrade -y
 ```
 
-### <span id="firewall" style="color:orange">Update semua pembaruan system dan driver</span>
+## Install Firewall
+
 ```sh
 sudo apt-get install gufw -y
 ```
 
-### <span id="git" style="color:orange">Install GIT</span>
-- Menambahkan Repository PPA & install untuk mendapatkan pembaruan secara berkala dari GIT
-    ```sh
-    sudo add-apt-repository ppa:git-core/ppa
-    sudo apt-get install git
+## Install GIT
+
+```shell
+# untuk mendapatkan update secara berkala
+sudo add-apt-repository ppa:git-core/ppa
+sudo apt-get install git
+```
+
+## Install Editor
+
+Disini ada dua editor yang sering saya gunakan yaitu `Neovim` dan `VS Code`
+
+```shwll
+# install neovim
+sudo apt-get install neovim
+
+# install vs code menggunakan snap
+sudo snap install code --classic
+
+# atau download langsung pada website dan download file .deb
+# contoh install
+sudo dpkg -i VS-CODE.deb
+```
+
+## Install oh my zsh
+
+```sh
+sudo apt-get install zsh -y
+
+# menjadikan zsh sebagai default shell
+chsh -s /usr/bin/zsh
+
+# unduh script untuk pemasangan zsh
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+
+# 
+cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc 
+sudo nano ~/.zshrc
+ZSH_THEME="masukkan_naam_theme_pilihanmu"
+source ~/.zshrc
+```
+
+Install plugin zsh
+
+```shell
+# untuk memasang clone smua pligun ini
+# autosuggesions plugin
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
+# zsh-syntax-highlighting plugin
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+
+# zsh-fast-syntax-highlighting plugin
+git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
+
+#zsh-autocomplete plugin
+git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git $ZSH_CUSTOM/plugins/zsh-autocomplete
+
+# implementasi
+# Open ~/.zshrc
+# cari bagian plugins=(git)
+# copy dan paste code do bawah ini kedalam plugins menjadi seperti ini
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
+```
+
+Baca juga [https://github.com/romkatv/powerlevel10k](https://github.com/romkatv/powerlevel10k) - biar gak gitu-gitu aja tampilannya
+
+## Install Apache 2
+
+```shell
+sudo apt install apache2 -y
+
+# manage apache
+sudo systemctl status apache2
+sudo systemctl stop apache2
+sudo systemctl start apache2
+sudo systemctl restart apache2
+sudo systemctl reload apache2
+sudo systemctl disable apache2
+sudo systemctl enable apache2
+
+# Izin akses apache pada firewall
+sudo ufw app list
+sudo ufw allow 'Apache Full'
+sudo ufw status
+```
+
+## Install PHP
+
+```shell
+sudo apt-get install php -y
+
+# install semua module php ini
+sudo apt install php-mbstring php-zip php-gd php-json php-curl libapache2-mod-php php-mysqlnd php-xml -y
+```
+
+## Install Mysql Server
+
+```shell
+sudo apt-get install mysql-server -y
+
+# manage mysql service
+sudo systemctl start mysql.service
+
+# manage user
+sudo mysql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'NEW_PASSWORD';
+mysql -u root -p
+sudo mysql_secure_installation
+
+# determine the strength of the password
+SHOW VARIABLES LIKE 'validate_password%';
+SET GLOBAL validate_password.policy = 0;   // For LOW 
+SET GLOBAL validate_password.policy = 1;   // For MEDIUM 
+SET GLOBAL validate_password.policy = 2;   // For HIGH 
+
+# manage user
+SELECT user, host FROM mysql.user;
+drop user name_user@localhost;
+
+create user 'username'@'localhost' identified by 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+# login dengan user baru
+sudo mysql -u username -p
+```
+
+## Manage Database
+
+Ada beberapa opsi untuk kamu jika ingin mengelola database yaitu bisa menggunakan :
+
+- [Table Plus](https://tableplus.com/) - Easy, modern, native and friendly GUI (Rekomended)
+- [Beekeeper-Studio](https://www.beekeeperstudio.io/) - Modern and easy to use
+- Phpmyadmin (Tidak rekomended)
+- Menggunakan Plugin VS Code (Rekomended)
+- Menggunakan Terminal Langsung (Sangat Rekomended)
+- dll
+
+**Panduan Instalasi**
+
+- Install Table plus on ubuntu 22.04
+
+    ```shell
+    # Add TablePlus gpg key
+    wget -qO - https://deb.tableplus.com/apt.tableplus.com.gpg.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/tableplus-archive.gpg > /dev/null
+
+    # Add TablePlus repo
+    sudo add-apt-repository "deb [arch=amd64] https://deb.tableplus.com/debian/22 tableplus main"
+
+    # Install
+    sudo apt update
+    sudo apt install tableplus
     ```
 
-### <span id="zsh" style="color:orange">Install oh my zsh</span>
-- Donwload and install zsh
-     ```sh
-    sudo apt-get install zsh
-    ```
-- Menjadikan zsh sebagai default shell/menjadikan sebagai default terminal
-     ```sh
-     chsh -s /usr/bin/zsh
-    ```
-    Kemudian logout account/user dan login kembali dan buka terminal pilih No. 2 add ~/.zshrc agar kedepannya bisa melakukan costum shell zsh
+    > Note: masih beta version
+- Install Beekeeper Studio
 
-- Mengunduh scrip untuk pemasangan zsh
-     ```sh
-     sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-    ```
-    Jika berhasil harunya tampil oh my zsh pada terminal
-
-- Mengganti konfigurai default bawaan zsh ke konfigurasi yang di sarankan dengan perintah
-     ```sh
-    cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc 
-    ```
-- Untuk mengganti theme pada zsh gunakan perintah
-     ```sh
-    sudo nano ~/.zshrc
-    ```
-- Fokus pada baris bagian ZSH_THEME
-    ```sh
-    ZSH_THEME="masukkan_naam_theme_pilihanmu"
-    ```
-    [Pilih theme zsh sesuai kesukaan](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes)
-
-- Untuk melihat perubahan gunakan perintah
-    ```sh
-    source ~/.zshrc
+    ```shell
+    sudo snap install beekeeper-studio
     ```
 
-### <span id="p10k" style="color:orange">Install Powerlevel 10K</span>
-Opsional jika kamu butuh terminal yang lebih keren lagi menurut saya keren ngab 😂
-- Pastika **zsh** sudah terpasang
-- Biar tidak terjadi kesalahan pastikan termila kamu sudah menggunakan font **MesloLGS NF**
-[Download Font](https://github.com/romkatv/powerlevel10k-media/blob/master/MesloLGS%20NF%20Regular.ttf?raw=true)
-- Download dan install powerlevel10k dengan cara cloninf repository
-    ```sh
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-    ```
-- Konfigurasi theme sesuai pilihanmu dengan menggunakan perintah ini pada terminal, sebelumnya kamu harus mengganti theme pada ~/.zshrc ```ZSH_THEME="powerlevel10k/powerlevel10k"``` kemudian eksekusi perintah di bawah ini.
-    ```sh
-    p10k configure
-    ```
-- Selengkpanya kunjungi repo [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- Install phpmyadmin
 
-### <span id="apache2" style="color:orange">Install Apache 2</span>
-- Download & install apache 2
-    ```sh
-    sudo apt-get update && sudo apt install apache2 -y
-    ```
-- Managing Apache 2
-    ``` sh
-    sudo systemctl status apache2
-    sudo systemctl stop apache2
-    sudo systemctl start apache2
-    sudo systemctl restart apache2
-    sudo systemctl reload apache2
-    sudo systemctl disable apache2
-    sudo systemctl enable apache2
-    ```
-- Konfigurasi Firewall 
-    ```sh
-    sudo ufw app list
-    sudo ufw allow 'Apache Full'
-    sudo ufw status
+    > pastikan semua module php yang dibutuhkan sudah di install semua di atas.
+
+    ```shell
+    sudo apt-get phpmyadmin -y
+
+    # ikuti semua instruksi dan perhatikan baik-baik pastikan memilih apache dan untuk username gunakan root atau user baru yang dibuat pada saat konfigurasi mysql-serve, rekomendasi gunakan root saja
     ```
 
-- if you want to do a costum domain you can check on google
+- Menggunakan Plugin VS Code
 
-### <span id="php" style="color:orange">Install PHP</span>
-- Install PHP
-    ```sh
-    sudo apt-get install -y php libapache2-mod-php
-    ```
+    Install extension `SQLTools MySQL/MariaDB/TiDB` dan `MySQL` cari yang sudah centang. tinggal buat connection baru.
 
-## <span id="mysqlServer" style="color:orange">Install Mysql Server</span>
-- Download dan install mysql server
-    ```sh
-    sudo apt install mysql-server
-    ```
-- Managing Mysql-server 
-    ```sh
-    sudo systemctl start mysql.service
-    ```
-- Manage User Database 
-    ```sh
-    sudo mysql
+## Install Node Js Using NVM
 
-    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
-    ```
-    ```sh
-    mysql -u root -p
+Baca lengkap [https://github.com/nvm-sh/nvm](https://github.com/nvm-sh/nvm)
 
-    ALTER USER 'root'@'localhost' IDENTIFIED WITH auth_socket;  // Optional
-    ```
-    ```
-    sudo mysql_secure_installation
-    ```
-- Determine the strength of the password
-    ```
-    SHOW VARIABLES LIKE 'validate_password%';
+```shell
+# get nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 
-    SET GLOBAL validate_password.policy = 0;   // For LOW 
-    SET GLOBAL validate_password.policy = 1;   // For MEDIUM 
-    SET GLOBAL validate_password.policy = 2;   // For HIGH 
-    ```
-- Create new user
-    ```
-    SELECT user, host FROM mysql.user;  // Show User
-    drop user name_user@localhost;      // Delete User
+# sekarang cek nvm --version jika versi keluar maka tidak perlu mengedit bash profile 
+# edit bash profile jika nvm kamu bermasalah saat cek veri nvm
+sudo nvim ~/.zshrc
 
-    create user 'username'@'localhost' identified by 'password';
-    GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' WITH GRANT OPTION;
-    FLUSH PRIVILEGES; 
-    ```
-- If you want to login with new user then use
-    ```
-    mysql -u username -p
-    ```
+# untuk memuat semua perubahan 
+source ~/.zshrc
 
-## <span id="nodejs" style="color:orange">Install Node Js</span>
-> Saran gunakan NVM untuk menginstall node js
-- Install NVM (Node Version Manager) mengapa pake nvm, menggunakan nvm kamu bisa menginstall node js versi yang berbeda di laptop kamu
-- Install NVM menggunakan perintah
-    ```sh
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-    ```
-- Jika sudah selesai cek Versi nvm yang terinstall untuk memastikan benar-benar sudah terintall jika mengalami kendala update PATH
-- Jika kamu menggunakan zsh sebagai default shell tambahkan PATH pada shell profile dengen menggunakan perintah
-    ```sh
-    sudo nano ~/.zshrc
-    ```
-- Pada baris bagian akhir tambahkan
-    ```sh
-    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-    ```
-- Dan cek lagi versi harusnya sudah keluar versi vnm kamu
-- Lalu bagaimana menginstall node js menggunakan nvm tenag ngab gampang banget gunakan perintah
-    ```sh
-    nvm list-remote
-    ```
-    Tinggal pilih mau install node js versi berapa, mau install lebih dari 1 boleh ngab cara install nya menggunakan
-    ```sh
-    nvm install Veri_NodeJS
-    
-    // atau
-    nvm install –lts 
-    ```
-    Lalu bagaiman jika ingin menggunakan node versi yang lain yang sudah kamu install gunakan perintah di ikuti dengan versi node yang ingin kamu gunakan
-    ```sh
-    nvm use Versi_NodeJS
+# copy dan paste code di bawah ini ke baris paling akhir bash profile di sini saya menggunakan zsh
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# stelah itu close dan buka terminal cek kembali nvm --version harusnya sudah bisa.
 
-    // untuk memgatur defailt versi node yang akan kamu gunakan
-    nvm alias default Versi_NodeJS 
-    ```
+# untuk melihat semua versi node js
+nvm list-remote
 
-## <span id="python3" style="color:orange">Install Python 3</span>
-- By default sistem di ubutnu sudah ada bawaan python3, untuk memastikannya ketik perintah
-    ```sh
-    python3 --version
-    ```
-- Install `pip` untuk mengelola package pada python
-    ```sh
-    sudo apt install -y python3-pip
-    ```
-- Untuk menginstall package gunaan perintah
-    ```sh
-    pip3 install Package_Name
-    ```
-## <span id="java" style="color:orange">Install Java/JDK</span>
-- Install java OpenJDK 17 atau versi lainnya di sini saya mengguankan versi 17
-    ```sh
-    sudo apt install openjdk-17-jdk
+# install node js
+nvm install VERSI_NODEJS
+# atau, untuk menginstall node js versi lts paling terbaru.
+nvm install -lts
 
-    java --version //untuk melihat versi java yang telah di install
-    ```
-    JRE sudah termasuk dalam paket JDK. Jika hanya membutuhkan JRE, instal paket `openjdk-17-jre`. Untuk Java runtime minimal, install paket `openjdk-17-jdk-headless`
-- Bagaimana jika anda ingin menggunakan versi java yang versi lain juga santuy aja ngab bisa install 2 versi kok dengan cara install java versi yang di inginkan terlebih dahulu dan kemudian kita akan mengatur default java yang akan digunakan dengan menambahkan environment variabel
-- Example saat ini kamu punya 2 versi java yang berbeda dalam satu perangkat/laptop yang gunakan kita akan mengatur agar java default nya adalah, anggaplah versi 8 dan 17 yang barusan di install ketikkan perintah berikut
-    ```sh
-    sudo update-alternatives --config java
-    ```
-    Nanti akan muncul semua versi java yang sudah kamu install pilih versi java yang akan di jadikan sebagai default 
-- Mengatur variabel environment JAVA_HOME dengan menggunakan perintah
-    ```sh
-    sudo update-alternatives --config java
-    ```
-- Kemudian ketikkan perintah
-    ```sh
-    sudo nano /etc/environment
-    ```
-    Tambahkan baris baru `JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"`<br>
-    Path location installer java di dapatkan pada saat mengetikkan perintah `sudo update-alternatives --config java`
-- Untuk mendapatkan perubahan anda bisa menggunakan perintah
-    ```sh
-    source /etc/environment
-    ```
-- Cek lagi apakah sudah benar dengan mengetikkan perintah
-    ```sh
-    echo $JAVA_HOME 
-    ```
-    Pastikan path pada JAVA_HOME sudah sesuai dengan versi yang anda pilih.
-- Lalu bagaimana jika kamu ingin menhapus java yang sudha di install, tenang ngab tinggal gunakan perintah ini
-    ```sh
-    sudo apt remove openjdk-8-jdk
+# mengatur default versi node js
+nvm use VERSI_NODEJS
+nvm alias default VERSI_NODEJS
+```
 
-    // untuk membersihakan semua paket yang tidak digunakan
-    sudo apt-get autoremove
-    sido apt-get autoclean
-    sudo apt-get clean
-    ```
-## <span id="androidStudio" style="color:orange">Install Android Studio</span>
-- Download dan install android studio
-    ```sh
-    sudo snap install android-studio --classic
-    ```
-- Pastikan koneksi intenet kamu cepat dan tidak lemot untuk mendownload semua yang dibutuhkan termasuk Gradle SDK dll pada androis studio.
-## <span id="flutter" style="color:orange">Install Flutter</span>
+## Install Python 3
+
+By default sistem di ubutnu sudah ada bawaan python3, untuk memastikannya ketik perintah,
+baca leangkap di sini [Digital ocean install python 3](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-an-ubuntu-20-04-server-id)
+
+```shell
+python3 --version
+
+# jika tidak ada install
+sudo apt-get install python3
+
+# install pip untuk mengelola package pada python
+sudo apt install -y python3-pip
+
+# install package sesuai kebutuhna
+pip3 install PACKAGE_NAME
+```
+
+## Install Java
+
+Install java OpenJDK 17 atau versi lainnya di sini saya mengguankan versi 17
+
+```shell
+sudo apt install openjdk-17-jdk
+java --version //untuk melihat versi java yang telah di install
+
+sudo update-alternatives --config java
+sudo nano /etc/environment
+source /etc/environment
+echo $JAVA_HOME 
+
+# contoh cara uninstall java
+sudo apt remove openjdk-8-jdk
+# untuk membersihakan semua paket yang tidak digunakan
+sudo apt-get autoremove
+sido apt-get autoclean
+sudo apt-get clean
+```
+
+## Install Android Studio
+
+```sh
+sudo snap install android-studio --classic
+```
+
+> Pastikan koneksi intenet kamu cepat dan tidak lemot untuk mendownload semua yang dibutuhkan termasuk Gradle SDK dll pada android studio.
+
+## Install Flutter
+
 - Pastikan java sudah terintall dan Android Studio
 - Buka Android Studio->pilih menu SDK Manager->pilih tab SDK Tools install beberapa SDK Tools
-    ![SDK Tools](assets/sdk_tools.png)
-    Cukup install tambahan `Android SDK Command-line Tools` dan `Android SDK Platform Tools` 
-- install flutter di sini mengguankan snap pastikan koneksi internet kamu kencang untuk mendownload binary file
-- Seteleh berhasil ketikkan perintah berikut:
-    ```sh
+    Cukup install tambahan `Android SDK Command-line Tools`
+- Install flutter di sini mengguankan snap pastikan koneksi internet kamu kencang untuk mendownload binary file
+
+    ```shell
+    # tunggu sampai selesai
+    sudo snap install flutter --classic
+
+    # Resolve semua dependencies yang dibutuhkan
     flutter doctor -v
-    ```
-    Pastikan tidak ada error jika terjadi error perhatikan dan jalankan perintah yag di sarankan untuk android license dll
-## <span id="phpmyadmin" style="color:orange">Install Phpmyadmin + Module PHP</span>
-> Saya sarankan menggunakan extension vs code **SQLTools/MariaDB** atau [Table Plus](#mysqlServer) atau mysql workbench, kalo nggak pake terminal aja ngab biar kek hecker 😎
 
-Gunakan perintah ini untuk menginstall phpmyadmin dan beberapa modul php yang dibutuhkan untuk menjalankan phpmyadmin
+    # pastikan tidak ada yang error ya
+    ```
+
+- Install manual
+
+    Download file tar.xz terlebih dahulu di [https://docs.flutter.dev/get-started/install/linux](https://docs.flutter.dev/get-started/install/linux)
+
+    ```shell
+    # buat folder baru agar rapih bebas saja nama foldernya
+    mkdir development
+
+    # file flutter yang di download tadi pindahkan kedalam folder development
+    cd development
+
+    # extract file flutter .tar.xz setelah di extract silahkan remove file .tar.xz
+    unzip flutter_linux_3.10.5-stable.tar.xz
+    rm flutter_linux_3.10.5-stable.tar.xz
+
+    # export path untuk flutter
+    export PATH="$PATH:`pwd`/flutter/bin"
+
+    # atau tambahkan manual pada bash profile misal
+    export PATH="$PATH:/home/YUR_USER/development/flutter/bin"
+
+    # kemudian jalankan perintah untuk resolve semua dependencies yang dibutuhkan
+    flutter doctor -v
+    # pastikan tidak ada error lagi
+
+    # manage flutter, rekomended disable saja yang tidak diperlukan
+    flutter config --no-enable-web
+    flutter config --no-enable-macos-desktop
+    flutter config --no-enable-windows-desktop
+    flutter config --no-enable-linux-desktop
+    ```
+
+## Install Composer
+
 ```sh
-sudo apt install -y phpmyadmin php-mbstring php-zip php-gd php-json php-curl libapache2-mod-php php-mysqlnd php-xml
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
 ```
 
-## <span id="tablePlus" style="color:orange">Table Plus</span>
-
-> UI lebih clean, kamu juga bisa install extension vs code biat tidak terlalu banyak aplikasi dan qury bisa di simpan di dalam 1 project.
+Pindahkan `composer.phar` kedalan direktori pada `/usr/local/bin/` untuk menjadikan composer global installer, jadi pada direktory manapun anda bisa memanggil composer
 
 ```sh
-# Add TablePlus gpg key
-wget -qO - https://deb.tableplus.com/apt.tableplus.com.gpg.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/tableplus-archive.gpg > /dev/null
-
-# Add TablePlus repo
-sudo add-apt-repository "deb [arch=amd64] https://deb.tableplus.com/debian/22 tableplus main"
-
-# Install
-sudo apt update
-sudo apt install tableplus
-
+sudo mv composer.phar /usr/local/bin/composer
 ```
-![SDK Tools](assets/table_plus.png)
 
-## <span id="composer" style="color:orange">Install Composer</span>
-- Download dan install Composer
-    ```sh
-    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-    php composer-setup.php
-    php -r "unlink('composer-setup.php');"
-    ```
-- Pindahkan `composer.phar` kedalan direktori pada PATH untuk menjadikan composer global installer jadi pada direktory manapun anda bisa memanggil composer ngab tadi pas install di root kan seakarang pindahkan menggunakan perintah ini ngab
-    ```sh
-    sudo mv composer.phar /usr/local/bin/composer
-    ```
-    cek kembali tutup terminal dan buka lagi kemudian ketikkan `composer` harunsya nggak ada error ngab
-    
-## <span id="laravel" style="color:orange">Install Laravel Secara Global</span>
-- Gunakan composer untuk menginstall laravel secara global menggunakan perintah
-    ```sh
-    composer global require laravel/installer
-    ```
-- Edit PATH, jika kamu menggunakan zsh atau bash
-    ```sh
-    export PATH="$HOME/.config/composer/vendor/bin:$PATH"
-    ```
-- Terakhir cek apakah benar PATH yang dibuat
-    ```sh
-    laravel --version
-    ```
-    Harusnya keluar versi laravel global installer ngab.
-- untuk membuat project gunakan perintah
-    ```sh
-    laravel new Nama_Project
-    ```
-    Jika kamu ingin membuat project laravel dengan versi tertentu silakan gunakan composer ngab
-    ```sh
-    composer create-project --prefer-dist laravel/laravel blog "6.*"
-    ```
-    Perintah di atas contoh untuk menginstall laravel versi 6
+cek kembali tutup terminal dan buka lagi kemudian ketikkan `composer` harunsya nggak ada error ngab
 
-## <span id="lsd" style="color:orange">Install LSDeluxe</span>
-> Install ini jika ingin terminal kamu lebih keren seperti ini.
+## Install Laravel Secara Global
 
-Sialahkan ikuti panduan resmi di github reponya, [LSDeluxe](https://github.com/lsd-rs/lsd) dan [colorls](https://github.com/athityakumar/colorls)</br>
-oh iya ini saya pake [zsh](#install-oh-my-zsh) color dari [gruvbox](https://github.com/morhetz/gruvbox) baca semua jangan setengah-setengah untuk mendapatkan hasil maksimal.
+```sh
+composer global require laravel/installer
 
-![SDK Tools](assets/lsd.png)
+# edit bash profile
+sudo nvim ~/.zshrc
+# copy dan paste baris di bawah ini pada bagian akhir .zshrc
+export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+
+# apply semua
+source ~/.zshrc
+
+# cek versi laravel global yang di install
+laravel --version
+
+# membuat project dengan menggunakan laravel global installer
+laravel new Nama_Project
+
+# contoh cara membuat project laravel dengan versi laravel 6
+composer create-project --prefer-dist laravel/laravel blog "6.*"
+```
+
+## Other
+
+- [LSDeluxe](https://github.com/lsd-rs/lsd) - Menampilkan icon pada terminal baca leangkap panduan biar gada yang error
+- [https://www.gnome-look.org/](https://www.gnome-look.org/) - Dwonload walpaper, theme, icon dll
+- [Vimix-Cursor](https://github.com/vinceliuice/Vimix-cursors) - Baca readme.md
+- [MongoDB](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/) - Official Documentation
+- [OBS Studio](https://obsproject.com/download) -  Official Docmentation
+- [yt-dl](http://ytdl-org.github.io/youtube-dl/download.html) - Youtube-dl Doenloads
+- [Firebase-CLI](https://firebase.google.com/docs/cli#install-cli-mac-linux) - Linux Installation
+
+```shell
+# install discord
+sudo snap install discord
+
+# install postman
+sudo snap install postman
+
+# install obs studio
+sudo snap install obs-studio
+
+# install spotify
+sudo snap install spotify
+```
+
+> Nggak harus pake snap kok, tinggal download file .deb di website resmi dan execute dengan `sudo dpkg -i ....`
+
+## Butuh Bantuan 🤣
+
+[Discord](https://discordapp.com/users/04burhanuddin) - Contact
