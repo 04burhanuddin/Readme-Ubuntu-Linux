@@ -4,6 +4,8 @@ Copyright © 2022 [04burhanuddin](https://github.com/04burhanuddin)
 
 **Warning**: Don't blindly use this configuration, unless you know what you need. Use at your own risk!.
 
+<img src="assets/screen.jpg" height="500px">
+
 ## Table Of Contents
 
 - Download Ubuntu
@@ -95,6 +97,22 @@ ssh-add ~/.ssh/YOUR_ID HERE
 # pastikan sudah sukses seperti ini
 ssh -T git@github.com
 Hi ....! You've successfully authenticated, but GitHub does not provide shell access.
+```
+
+> Setelah komputer/laptop reboot, SSH key tidak bisa digunakan harus ditambahkan lagi baru bisa.
+
+Nah biar ga ribet `ss-add ...` buat file baru dengan nama `config`
+
+```shell
+nvim ~/.ssh/config
+```
+
+copy dan paste ke dalam file `config`
+
+```shell
+# Github.com server
+Host github.com
+IdentityFile ~/.ssh/ID_RSA
 ```
 
 ## Install Editor
