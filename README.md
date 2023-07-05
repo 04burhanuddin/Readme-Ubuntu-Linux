@@ -4,7 +4,7 @@ Copyright © 2022 [04burhanuddin](https://github.com/04burhanuddin)
 
 **Warning**: Don't blindly use this configuration, unless you know what you need. Use at your own risk!.
 
-<img src="assets/screen.jpg" height="500px">
+<img src="assets/screen.jpg" width="600px">
 
 ## Table Of Contents
 
